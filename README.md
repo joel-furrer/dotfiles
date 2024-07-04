@@ -35,6 +35,24 @@ Welcome to my dotfiles repository! This is a collection of configuration files a
 - **Theme**: [Catppuccin Mocha](https://github.com/catppuccin/catppuccin).
 - **Editor**: Neovim with a modern Lua-based configuration.
 
+### Neovim Plugins
+
+- **alpha.lua**
+- **gitsigns.lua**
+- **lualine.lua**
+- **nvim-tmux-navigation.lua**
+- **telescope.lua**
+- **catppuccin.lua**
+- **git-stuff.lua**
+- **neo-tree.lua**
+- **oil.lua**
+- **treesitter.lua**
+- **completions.lua**
+- **lsp-config.lua**
+- **none-ls.lua**
+- **swagger-preview.lua**
+- **vim-test.lua**
+
 ## Installation
 
 1. **Clone the Repository**
