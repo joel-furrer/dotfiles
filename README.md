@@ -40,7 +40,7 @@ Welcome to my dotfiles repository! This is a collection of configuration files a
 1. **Clone the Repository**
 
     ```sh
-    git clone https://github.com/joel/dotfiles.git ~/.dotfiles
+    git clone https://github.com/joel-furrer/dotfiles.git ~/.dotfiles
     cd ~/.dotfiles
     ```
 
