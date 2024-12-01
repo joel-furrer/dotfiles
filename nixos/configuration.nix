@@ -1,29 +1,23 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   boot.loader = {
     systemd-boot.enable = true;
-    #systemd-boot.allow-recovery = true;
     efi.canTouchEfiVariables = true;
   };
-
-  #hardware.opengl.enable = true;
 
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      mesa
-      mesa_drivers
-      libGL
-      libvdpau
-      libvdpau
-      vulkan-tools
-    ];
+    extraPackages = with pkgs; [ mesa mesa_drivers vulkan-tools ];
   };
+
+  sound.enable = true;
 
   networking = {
     hostName = "nixos";
@@ -37,27 +31,13 @@
     xserver = {
       videoDrivers = [ "intel" ];
       enable = true;
-      desktopManager.plasma5.enable = true;
-      windowManager = {
-        i3 = {
-	  enable = false;
-	};
-        awesome = {
-          enable = false;
-          luaModules = with pkgs.luaPackages; [
-            luarocks
-            luadbi-mysql
-          ];
-        };
-      };
       xkb = {
         layout = "ch";
         variant = "de_nodeadkeys";
       };
     };
-    displayManager = {
-      sddm.enable = true;
-    };
+    displayManager.sddm.enable = true;
+    desktopManager.plasma6.enable = true;
     printing.enable = true;
     pipewire = {
       enable = true;
@@ -67,31 +47,9 @@
     openssh.enable = true;
   };
 
-  fonts.packages = with pkgs; [ nerdfonts ];
-
-  console.keyMap = "sg";
-
-  hardware = {
-    pulseaudio.enable = false;
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
-  };
-
-
-  security.rtkit.enable = true;
-
-  users = {
-    users.joel = {
-      isNormalUser = true;
-      description = "Joel";
-      extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [ kate ];
-    };
-  };
-
   programs = {
+    hyprland.enable = false;
+    hyprland.xwayland.enable = false;
     firefox.enable = true;
     kdeconnect.enable = true;
     mtr.enable = true;
@@ -99,33 +57,47 @@
       enable = true;
       enableSSHSupport = true;
     };
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
+    };
   };
 
-  programs.steam = {
+  fonts.packages = with pkgs; [ nerdfonts ];
+
+  console.keyMap = "sg";
+
+  hardware.bluetooth = {
     enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-    localNetworkGameTransfers.openFirewall = true;
+    powerOnBoot = true;
   };
 
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowBroken = true;
+  security.rtkit.enable = true;
 
-  environment = {
-    systemPackages = with pkgs; [
-      vim lf neofetch vscodium figlet git obsidian kitty alacritty mesa libreoffice-qt hunspell nmap
-      zsh neovim sl pkgs.python3 pipx gcc openssh nerdfonts direnv steam steam-run gparted android-tools
-      wget ninja spotify vlc tree lua keepassxc jsoncpp zed-editor inkscape libglvnd logisim-evolution
-      discord networkmanager rofi tmux starship telegram-desktop kdeconnect glxinfo simplescreenrecorder
-    ];
-    shells = [
-      "/run/current-system/sw/bin/bash"
-      "/run/current-system/sw/bin/sh"
-      "/nix/store/rdd4pnr4x9rqc9wgbibhngv217w2xvxl-bash-interactive-5.2p26/bin/bash"
-      "/nix/store/rdd4pnr4x9rqc9wgbibhngv217w2xvxl-bash-interactive-5.2p26/bin/sh"
-      "/run/current-system/sw/bin/zsh"
-    ];
+  users.users.joel = {
+    isNormalUser = true;
+    description = "Joel";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [ kate ];
   };
+
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowBroken = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    vim lf neofetch vscodium figlet git obsidian kitty alacritty mesa 
+    libreoffice-qt hunspell nmap fastfetch plymouth greetd.greetd
+    zsh neovim sl python3 pipx gcc openssh nerdfonts direnv steam steam-run 
+    gparted android-tools php powershell bat lsd btop typescript
+    wget spotify vlc tree lua keepassxc jsoncpp typescript 
+    cbonsai waybar hyprpaper pipewire swaylock qtcreator
+    discord networkmanager rofi tmux starship telegram-desktop kdeconnect glxinfo 
+    simplescreenrecorder lightdm lightdm-gtk-greeter
+  ];
 
   networking.firewall = {
     enable = true;
@@ -133,12 +105,7 @@
     allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
   };
 
-  fileSystems."/mnt/truenas" = {
-    device = "//192.168.100.101/Daten"; # „Daten“ ist der SMB-Freigabename
-    fsType = "cifs";
-    options = [ "root" "020207" ];
-  };
-
-
   system.stateVersion = "24.05";
+
 }
+
