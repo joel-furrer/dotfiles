@@ -17,6 +17,8 @@
     extraPackages = with pkgs; [ mesa mesa_drivers vulkan-tools ];
   };
 
+  virtualisation.docker.enable = true;
+
   sound.enable = true;
 
   networking = {
@@ -93,10 +95,10 @@
     libreoffice-qt hunspell nmap fastfetch plymouth greetd.greetd
     zsh neovim sl python3 pipx gcc openssh nerdfonts direnv steam steam-run 
     gparted android-tools php powershell bat lsd btop typescript
-    wget spotify vlc tree lua keepassxc jsoncpp typescript 
-    cbonsai waybar hyprpaper pipewire swaylock qtcreator
+    wget spotify vlc tree lua keepassxc jsoncpp wofi librewolf
+    cbonsai pipewire ghc docker
     discord networkmanager rofi tmux starship telegram-desktop kdeconnect glxinfo 
-    simplescreenrecorder lightdm lightdm-gtk-greeter
+    simplescreenrecorder
   ];
 
   networking.firewall = {
