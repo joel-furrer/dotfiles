@@ -10,16 +10,10 @@
     efi.canTouchEfiVariables = true;
   };
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [ mesa mesa_drivers vulkan-tools ];
+    extraPackages = with pkgs; [ mesa pkgs.mesa.drivers vulkan-tools ];
   };
-
-  virtualisation.docker.enable = true;
-
-  sound.enable = true;
 
   networking = {
     hostName = "nixos";
@@ -31,75 +25,51 @@
 
   services = {
     xserver = {
-      videoDrivers = [ "intel" ];
       enable = true;
-      xkb = {
-        layout = "ch";
-        variant = "de_nodeadkeys";
-      };
+      videoDrivers = [ "intel" "modesetting" ];
     };
-    displayManager.sddm.enable = true;
+
     desktopManager.plasma6.enable = true;
-    printing.enable = true;
-    pipewire = {
-      enable = true;
-      alsa = { enable = true; support32Bit = true; };
-      pulse.enable = true;
-    };
-    openssh.enable = true;
-  };
 
-  programs = {
-    hyprland.enable = false;
-    hyprland.xwayland.enable = false;
-    firefox.enable = true;
-    kdeconnect.enable = true;
-    mtr.enable = true;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-    steam = {
-      enable = true;
-      remotePlay.openFirewall = true;
-      dedicatedServer.openFirewall = true;
-      localNetworkGameTransfers.openFirewall = true;
+    displayManager = {
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+      };
+      defaultSession = "plasma";
     };
   };
 
-  fonts.packages = with pkgs; [ nerdfonts ];
-
-  console.keyMap = "sg";
-
-  hardware.bluetooth = {
+  services.pipewire = {
     enable = true;
-    powerOnBoot = true;
+    alsa.enable = true;
+    pulse.enable = true;
   };
 
-  security.rtkit.enable = true;
+  services.fprintd.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    vim neofetch alacritty vlc libreoffice pipewire plasma5Packages.kdeconnect-kde steam 
+    neovim rofi firefox kitty telegram-desktop fprintd btop ghc
+    tmux zsh git lsd bat fastfetch powershell figlet jdk vscodium
+  ];
 
   users.users.joel = {
     isNormalUser = true;
     description = "Joel";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ kate ];
+    shell = pkgs.zsh;
   };
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    allowBroken = true;
-  };
 
-  environment.systemPackages = with pkgs; [
-    vim lf neofetch vscodium figlet git obsidian kitty alacritty mesa 
-    libreoffice-qt hunspell nmap fastfetch plymouth greetd.greetd
-    zsh neovim sl python3 pipx gcc openssh nerdfonts direnv steam steam-run 
-    gparted android-tools php powershell bat lsd btop typescript
-    wget spotify vlc tree lua keepassxc jsoncpp wofi librewolf
-    cbonsai pipewire ghc docker
-    discord networkmanager rofi tmux starship telegram-desktop kdeconnect glxinfo 
-    simplescreenrecorder
-  ];
+
+  programs.zsh.enable = true;
+  programs.firefox.enable = true;
+
+  fonts.packages = with pkgs; [ nerdfonts ];
+
+  nixpkgs.config.allowUnfree = true;
 
   networking.firewall = {
     enable = true;
@@ -107,7 +77,6 @@
     allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
   };
 
-  system.stateVersion = "24.05";
-
+  system.stateVersion = "24.11";
 }
 
