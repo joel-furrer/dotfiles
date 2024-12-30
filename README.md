@@ -1,117 +1,69 @@
 # Dotfiles
 
-![Dotfiles](https://img.shields.io/badge/dynamic/json?color=blue&label=dotfiles&query=%24.stars&url=https://api.github.com/repos/joel-furrer/dotfiles)
+This repository contains my personal dotfiles for configuring various tools and environments on my system. The dotfiles are intended to help set up a consistent and customized environment for development and everyday use. Here's a breakdown of the folder structure and contents:
 
-## Introduction
+## Folder Structure
 
-Welcome to my dotfiles repository! This is a collection of configuration files and folders designed to create a modern, simple, yet effective development environment.
+### `.config`
+Contains configuration files for various applications:
+- **alacritty**: Configurations for the Alacritty terminal emulator.
+  - `alacritty.toml`: Main configuration for Alacritty.
+  - `catppuccin-mocha.toml`: Theme configuration for the Catppuccin Mocha color scheme.
+  
+- **i3**: Configuration for the i3 window manager.
+  - `config`: The main i3 configuration file.
+  
+- **nvim**: Configuration for Neovim, an extensible text editor.
+  - `init.lua`: Main initialization file for Neovim.
+  - `lazy-lock.json`: File used by lazy.nvim for plugin management.
+  - `lua/`: Directory containing custom Lua scripts for Neovim plugins and settings.
+    - `.luarc.json`: Lua runtime configuration.
+    - `plugins/`: Directory for individual plugin configurations.
+    - `plugins.lua`: Main Lua script for managing plugins.
+    - `vim-options.lua`: Vim options for configuring Neovim.
+  
+- **polybar**: Configuration for Polybar, a status bar for X11.
+  - `config.ini`: Main Polybar configuration.
+  - `launch_polybar.sh`: Script to launch Polybar.
+  
+- **rofi**: Configuration for Rofi, a window switcher and application launcher.
+  - `catppuccin-mocha.rasi`: Theme file for Rofi using the Catppuccin Mocha color scheme.
+  - `config.rasi`: Main Rofi configuration.
+  
+- **starship**: Configuration for the Starship prompt.
+  - `starship.toml`: Configuration for customizing the Starship prompt.
+  
+- **tmux**: Configuration for tmux, a terminal multiplexer.
+  - `.tmux.conf`: Main tmux configuration file.
 
-## Contents
+### `.git`
+Contains Git configuration and data.
+- **config**: Global Git configuration file.
+- **hooks/**: Directory containing Git hook samples (e.g., `pre-commit`, `commit-msg`, etc.).
+- **index**, **logs**, **objects**, etc.: Git internal data structures.
 
-### Files
+### `nixos`
+- **configuration.nix**: Configuration file for setting up NixOS, a Linux distribution.
 
-- **.p10k.zsh**: [Powerlevel10k](https://github.com/romkatv/powerlevel10k) configuration for Zsh.
-- **.zshrc**: Zsh configuration file.
+### `.oh-my-zsh`
+Contains Zsh configurations for **Oh My Zsh**, a framework for managing Zsh configurations.
 
-### Folders
+### `.p10k.zsh`
+Configuration file for the Powerlevel10k Zsh theme, which enhances the terminal prompt.
 
-- **.config**: Contains various configurations.
-  - **alacritty**: Configuration for [Alacritty](https://github.com/alacritty/alacritty) terminal emulator.
-  - **i3**: Configuration for [i3](https://i3wm.org/) window manager.
-  - **nvim**: Configuration for [Neovim](https://neovim.io/), mostly written in Lua.
-  - **polybar**: Configuration for [Polybar](https://github.com/polybar/polybar) status bar.
-  - **rofi**: Configuration for [Rofi](https://github.com/davatorium/rofi) application launcher.
-  - **starship**: Configuration for [Starship](https://starship.rs/), the minimal, blazing-fast shell prompt.
-  - **tmux**: Configuration for [Tmux](https://github.com/tmux/tmux) terminal multiplexer.
-- **.git**: Version control using Git.
-- **nixos**: Configuration for [NixOS](https://nixos.org/).
-- **.oh-my-zsh**: Framework for managing Zsh configuration.
+### `.zshrc`
+Configuration file for **Zsh**, which is the shell I use. It includes settings for aliases, environment variables, and shell options.
 
-## Features
+## How to Use
 
-- **Shell**: Using Zsh with Oh My Zsh.
-- **Prompt**: [Powerlevel10k](https://github.com/romkatv/powerlevel10k) for a sleek and informative prompt.
-- **Font**: Meslo LGM Nerd Font.
-- **Theme**: [Catppuccin Mocha](https://github.com/catppuccin/catppuccin).
-- **Editor**: Neovim with a modern Lua-based configuration.
-
-### Neovim Plugins
-
-- **alpha.lua**
-- **gitsigns.lua**
-- **lualine.lua**
-- **nvim-tmux-navigation.lua**
-- **telescope.lua**
-- **catppuccin.lua**
-- **git-stuff.lua**
-- **neo-tree.lua**
-- **oil.lua**
-- **treesitter.lua**
-- **completions.lua**
-- **lsp-config.lua**
-- **none-ls.lua**
-- **swagger-preview.lua**
-- **vim-test.lua**
-
-## Installation
-
-1. **Clone the Repository**
-
-    ```sh
-    git clone https://github.com/joel-furrer/dotfiles.git ~/.dotfiles
-    cd ~/.dotfiles
-    ```
-
-2. **Create Symbolic Links**
-
-    ```sh
-    ln -s ~/.dotfiles/.p10k.zsh ~/.p10k.zsh
-    ln -s ~/.dotfiles/.zshrc ~/.zshrc
-    ln -s ~/.dotfiles/.config ~/.config
-    ln -s ~/.dotfiles/.oh-my-zsh ~/.oh-my-zsh
-    ```
-
-3. **Install Oh My Zsh**
-
-    ```sh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    ```
-
-4. **Install Powerlevel10k**
-
-    ```sh
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
-    ```
-
-5. **Set Up Neovim**
-
-    Install [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim) and make sure to install the required plugins using a plugin manager like [Packer](https://github.com/wbthomason/packer.nvim).
-
-6. **Install Fonts**
-
-    Download and install [Meslo LGM Nerd Font](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k).
-
-## Screenshots
-
-![Terminal](screenshots/terminal.png)
-![Neovim](screenshots/nvim.png)
-
-## License
-
-This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
-
-## Acknowledgements
-
-- [Oh My Zsh](https://ohmyz.sh/)
-- [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
-- [Neovim](https://neovim.io/)
-- [Catppuccin](https://github.com/catppuccin/catppuccin)
-- [Meslo LGM Nerd Font](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
----
-
-Crafted with ❤️ by [Joel](https://github.com/joel-furrer)
+### 1. Install Necessary Tools
+Before using these dotfiles, ensure that you have the following tools installed:
+- Alacritty
+- i3 (or another window manager if you prefer)
+- Neovim
+- Polybar
+- Rofi
+- Starship
+- tmux
+- Git
+- NixOS (if you're using it)
