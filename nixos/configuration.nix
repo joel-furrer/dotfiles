@@ -15,6 +15,9 @@
     extraPackages = with pkgs; [ mesa pkgs.mesa.drivers vulkan-tools ];
   };
 
+  hardware.bluetooth.enable = true; 
+  hardware.bluetooth.powerOnBoot = true; 
+
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
@@ -40,18 +43,26 @@
     };
   };
 
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     pulse.enable = true;
+    jack.enable = false;
   };
+
+  systemd.services.rtkit-daemon = {
+    enable = true;
+  };
+
 
   services.fprintd.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim neofetch alacritty vlc libreoffice pipewire plasma5Packages.kdeconnect-kde steam 
-    neovim rofi firefox kitty telegram-desktop fprintd btop ghc
-    tmux zsh git lsd bat fastfetch powershell figlet jdk vscodium
+    neovim rofi firefox kitty telegram-desktop fprintd btop ghc tty-clock gcc acpi
+    tmux zsh git lsd bat fastfetch powershell figlet jdk vscodium cbonsai speedtest-cli
+    tree jq discord starship hyprpaper dolphin feh waybar rtkit emacs wget polybar
   ];
 
   users.users.joel = {
@@ -62,10 +73,13 @@
     shell = pkgs.zsh;
   };
 
-
-
   programs.zsh.enable = true;
   programs.firefox.enable = true;
+  programs.hyprland = {
+    enable = false;
+    withUWSM = true; # recommended for most users
+    xwayland.enable = true; # Xwayland can be disabled.
+  };
 
   fonts.packages = with pkgs; [ nerdfonts ];
 
@@ -79,4 +93,3 @@
 
   system.stateVersion = "24.11";
 }
-
