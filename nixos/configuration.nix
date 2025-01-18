@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
-
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [./hardware-configuration.nix];
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -12,11 +12,11 @@
 
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [ mesa pkgs.mesa.drivers vulkan-tools ];
+    extraPackages = with pkgs; [mesa pkgs.mesa.drivers vulkan-tools];
   };
 
-  hardware.bluetooth.enable = true; 
-  hardware.bluetooth.powerOnBoot = true; 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   networking = {
     hostName = "nixos";
@@ -29,7 +29,7 @@
   services = {
     xserver = {
       enable = true;
-      videoDrivers = [ "intel" "modesetting" ];
+      videoDrivers = ["intel" "modesetting"];
     };
 
     desktopManager.plasma6.enable = true;
@@ -43,7 +43,6 @@
     };
   };
 
-
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -51,25 +50,73 @@
     jack.enable = false;
   };
 
-  systemd.services.rtkit-daemon = {
-    enable = true;
-  };
-
+  systemd.services.rtkit-daemon = {enable = true;};
 
   services.fprintd.enable = true;
 
   environment.systemPackages = with pkgs; [
-    vim neofetch alacritty vlc libreoffice pipewire plasma5Packages.kdeconnect-kde steam 
-    neovim rofi firefox kitty telegram-desktop fprintd btop ghc tty-clock gcc acpi
-    tmux zsh git lsd bat fastfetch powershell figlet jdk vscodium cbonsai speedtest-cli
-    tree jq discord starship hyprpaper dolphin feh waybar rtkit emacs wget polybar
+    emacs
+    nixd
+    vim
+    neofetch
+    alacritty
+    vlc
+    libreoffice
+    pipewire
+    plasma5Packages.kdeconnect-kde
+    steam
+    neovim
+    rofi
+    firefox
+    kitty
+    telegram-desktop
+    fprintd
+    btop
+    ghc
+    tty-clock
+    gcc
+    acpi
+    xdg-utils
+    lshw
+    smartmontools
+    toybox
+    dmidecode
+    inxi
+    chocolate-doom
+    alejandra
+    nixfmt-classic
+    tmux
+    zsh
+    git
+    lsd
+    bat
+    fastfetch
+    powershell
+    figlet
+    jdk
+    vscodium
+    cbonsai
+    speedtest-cli
+    tree
+    jq
+    discord
+    starship
+    hyprpaper
+    dolphin
+    feh
+    waybar
+    rtkit
+    emacs
+    wget
+    polybar
+    silicon
   ];
 
   users.users.joel = {
     isNormalUser = true;
     description = "Joel";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ kate ];
+    extraGroups = ["networkmanager" "wheel"];
+    packages = with pkgs; [kate];
     shell = pkgs.zsh;
   };
 
@@ -81,14 +128,24 @@
     xwayland.enable = true; # Xwayland can be disabled.
   };
 
-  fonts.packages = with pkgs; [ nerdfonts ];
+  fonts.packages = with pkgs; [nerdfonts];
 
   nixpkgs.config.allowUnfree = true;
 
   networking.firewall = {
     enable = true;
-    allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
-    allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
   };
 
   system.stateVersion = "24.11";
