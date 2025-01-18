@@ -1,8 +1,8 @@
-import = [
+general.import = [
   "~/.config/alacritty/catppuccin-mocha.toml"
 ]
 
-[shell]
+[terminal.shell]
 program = "/run/current-system/sw/bin/zsh"
 args = ["--login"]
 
@@ -10,20 +10,25 @@ args = ["--login"]
 TERM = "xterm-256color"
 
 [font]
-size = 7.0
+size = 12
 
-[font.bold]
-family = "MesloLGS Nerd Font"
-style = "Bold"
+#[font.bold]
+#family = "Fira Code"
+#style = "Bold"
 
-[font.bold_italic]
-family = "MesloLGS Nerd Font"
-style = "Bold Italic"
+#[font.bold_italic]
+#family = "Fira Code"
+#style = "Bold Italic"
 
-[font.italic]
-family = "MesloLGS Nerd Font"
-style = "Italic"
+#[font.italic]
+#family = "Fira Code"
+#style = "Italic"
 
-[font.normal]
-family = "MesloLGS Nerd Font"
-style = "Regular"
+#[font.normal]
+#family = "Fira Code"
+#style = "Regular"
+
+[window]
+padding = { x =6, y =6}
+opacity = 0.98
+startup_mode = "Maximized"
